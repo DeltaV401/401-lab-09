@@ -29,7 +29,7 @@ class Model {
    * Creates a new record in a given model.
    * @param {object} record 
    */
-  create(record) {
+  post(record) {
     console.log('r',record);
     let newRecord = new this.schema(record);
     console.log('n', newRecord);
@@ -41,7 +41,7 @@ class Model {
    * @param {number} _id 
    * @param {object} record 
    */
-  update(_id, record) {
+  put(_id, record) {
     return this.schema.findByIdAndUpdate(_id, record, { new: true });
   }
 

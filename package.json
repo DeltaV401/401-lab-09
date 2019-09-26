@@ -8,7 +8,8 @@
     "lint": "eslint **/*.js",
     "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
     "test": "jest --verbose",
-    "test-watch": "jest --watchAll --verbose"
+    "test-watch": "jest --watchAll --verbose",
+    "watch": "nodemon ."
   },
   "jest": {
     "testEnvironment": "node"
