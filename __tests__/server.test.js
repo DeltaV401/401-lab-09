@@ -52,7 +52,7 @@ describe('api server', () => {
         return mockRequest.get(`/api/v1/categories/${results.body._id}`)
           .then(list => {
             expect(200);
-            expect(list.body.name).toEqual(obj.name);
+            expect(list).toHaveProperty('name', 'testing');
           });
       });
 
