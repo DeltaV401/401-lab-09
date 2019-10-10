@@ -55,7 +55,7 @@ function handleGetOne(request,response,next) {
  * Takes in a certain model and creates a new record for that model.
  */
 function handlePost(request,response,next) {
-  request.model.create(request.body)
+  request.model.post(request.body)
     .then( result => response.status(200).json(result) )
     .catch( next );
 }
@@ -64,7 +64,7 @@ function handlePost(request,response,next) {
  * Takes in a certain model, and an id and change as parameters, and updates the specified id with the changes.
  */
 function handlePut(request,response,next) {
-  request.model.update(request.params.id, request.body)
+  request.model.put(request.params.id, request.body)
     .then( result => response.status(200).json(result) )
     .catch( next );
 }

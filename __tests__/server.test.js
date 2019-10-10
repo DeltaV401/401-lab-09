@@ -33,9 +33,9 @@ describe('api server', () => {
     return mockRequest
       .post('/api/v1/categories')
       .send(obj)
+      .expect(200)
       .then(results => {
-        expect(200);
-        expect(results[0]).toHaveProperty('name', 'test');
+        expect(results.body).toHaveProperty('name', 'test');
       });
 
   });
@@ -50,9 +50,9 @@ describe('api server', () => {
       .send(obj)
       .then(results => {
         return mockRequest.get(`/api/v1/categories/${results.body._id}`)
+        .expect(200)
           .then(list => {
-            expect(200);
-            expect(list).toHaveProperty('name', 'testing');
+            expect(list.body).toHaveProperty('name', 'testing');
           });
       });
 
