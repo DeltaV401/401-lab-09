@@ -50,7 +50,7 @@ class Model {
    * @param {object} record 
    */
   put(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record, { new: true })
+    return this.schema.findByIdAndUpdate(_id, record, { new: true})
       .then(res => {
         Q.publish('database', 'put', res);
         return res;

@@ -28,4 +28,6 @@ expressSwagger(options);
 
 // start up a specific standalone swagger server on a specific port
 // http://[domain]/api-docs
-swaggerServer.listen(3333);
+if(!module.parent) {
+  swaggerServer.listen(3333);
+}
