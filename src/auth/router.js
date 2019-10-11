@@ -19,3 +19,5 @@ router.post('/signup', (req, res, next) => {
 router.get('/signin', auth(), (req, res, next) => {
   res.send(req.token);
 });
+
+module.exports = router;

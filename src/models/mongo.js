@@ -1,6 +1,6 @@
 'use strict';
 
-const Q = require('@nmq/q');
+const Q = require('@nmq/q/client');
 
 class Model {
 
