@@ -19,4 +19,15 @@ users.pre('save', async function() {
   }
 });
 
+users.statics.authenticateBasic = async function ({ username, password }) {
+  let query = { username };
+  let user = this.findOne(query);
+  return user && user.comparePassword(password);
+}
+
+users.methods.comparePassword = async function(password) {
+  let valid = await bcrypt.compare(password, this.password);
+  return valid ? this : null;
+}
+
 module.exports = mongoose.model('users', users);
