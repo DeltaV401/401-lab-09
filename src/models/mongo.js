@@ -22,7 +22,11 @@ class Model {
    */
   get(_id) {
     let queryObject = _id ? { _id } : {};
-    return this.schema.find(queryObject);
+    return this.schema.find(queryObject)
+      .then(res => {
+        Q.publish('database', 'get', res);
+        return res;
+      });
   }
 
   /**
@@ -30,10 +34,12 @@ class Model {
    * @param {object} record 
    */
   post(record) {
-    console.log('r',record);
     let newRecord = new this.schema(record);
-    console.log('n', newRecord);
-    return newRecord.save();
+    return newRecord.save()
+    .then(res => {
+      Q.publish('database', 'post', res);
+      return res;
+    });
   }
 
   /**
@@ -42,7 +48,11 @@ class Model {
    * @param {object} record 
    */
   put(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record, { new: true });
+    return this.schema.findByIdAndUpdate(_id, record, { new: true })
+    .then(res => {
+      Q.publish('database', 'put', res);
+      return res;
+    });
   }
 
   /**
@@ -50,7 +60,11 @@ class Model {
    * @param {number} _id 
    */
   delete(_id) {
-    return this.schema.findByIdAndDelete(_id);
+    return this.schema.findByIdAndDelete(_id)
+    .then(res => {
+      Q.publish('database', 'delete', res);
+      return res;
+    });
   }
 
 }
