@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('./middleware');
+
 const User = require('./users-model');
 
 router.post('/signup', (req, res, next) => {
@@ -11,4 +13,8 @@ router.post('/signup', (req, res, next) => {
       res.send(`${user} exists now.`);
     })
     .catch(next);
+});
+
+router.get('/signin', auth(), (req, res, next) => {
+  res.send(`I'm in.`);
 });
