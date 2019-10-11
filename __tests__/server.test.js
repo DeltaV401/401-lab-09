@@ -50,7 +50,7 @@ describe('api server', () => {
       .send(obj)
       .then(results => {
         return mockRequest.get(`/api/v1/categories/${results.body._id}`)
-        .expect(200)
+          .expect(200)
           .then(list => {
             expect(list.body).toHaveProperty('name', 'testing');
           });

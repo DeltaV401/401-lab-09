@@ -1,5 +1,7 @@
 'use strict';
 
+const Q = require('@nmq/q');
+
 class Model {
 
   constructor(schema) {
@@ -36,10 +38,10 @@ class Model {
   post(record) {
     let newRecord = new this.schema(record);
     return newRecord.save()
-    .then(res => {
-      Q.publish('database', 'post', res);
-      return res;
-    });
+      .then(res => {
+        Q.publish('database', 'post', res);
+        return res;
+      });
   }
 
   /**
@@ -49,10 +51,10 @@ class Model {
    */
   put(_id, record) {
     return this.schema.findByIdAndUpdate(_id, record, { new: true })
-    .then(res => {
-      Q.publish('database', 'put', res);
-      return res;
-    });
+      .then(res => {
+        Q.publish('database', 'put', res);
+        return res;
+      });
   }
 
   /**
@@ -61,10 +63,10 @@ class Model {
    */
   delete(_id) {
     return this.schema.findByIdAndDelete(_id)
-    .then(res => {
-      Q.publish('database', 'delete', res);
-      return res;
-    });
+      .then(res => {
+        Q.publish('database', 'delete', res);
+        return res;
+      });
   }
 
 }

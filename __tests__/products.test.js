@@ -26,7 +26,7 @@ describe('Products model', () => {
         return products.get(product.id)
           .then(
             expect(product.name).toBe(obj.name)
-            );
+          );
       });
   });
 
