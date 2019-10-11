@@ -1,15 +1,17 @@
+const User = require('./users-model');
+
 module.exports = () => 
   async (req, res, next) => {
     try {
       let [authType, authString] = (req.headers.authorization || '').split(/\s+/);
 
       switch(authType.toLowerCase()) {
-        case 'basic':
-          return await _authBasic(authString);
-        case 'bearer':
-          return await _authBearer(authString);
-        default:
-          return await _authError();
+      case 'basic':
+        return await _authBasic(authString);
+      case 'bearer':
+        return await _authBearer(authString);
+      default:
+        return await _authError();
       }
     }
     catch(err) {
@@ -43,3 +45,4 @@ module.exports = () =>
       next({ status: 401, message: 'unauthorized' });
     }
   };
+  

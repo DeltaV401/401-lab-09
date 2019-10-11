@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "lint": "eslint **/*.js",
+    "lint": "eslint .",
     "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
-    "test": "jest --verbose",
+    "test": "jest --verbose --forceExit --detectOpenHandles",
     "test-watch": "jest --watchAll --verbose",
     "watch": "nodemon ."
   },

@@ -29,6 +29,7 @@ router.delete('/api/v1/:model/:id', handleDelete);
 // Route Handlers
 /**
  * Takes in a certain model and returns all records for that model.
+ * @route GET /api/v1/:model
  */
 function handleGetAll(request,response,next) {
   request.model.get()
@@ -44,6 +45,7 @@ function handleGetAll(request,response,next) {
 
 /**
  * Takes in a certain model and an id and returns the record for that id from that model.
+ * @route GET /api/v1/:model/:id
  */
 function handleGetOne(request,response,next) {
   request.model.get(request.params.id)
@@ -53,6 +55,7 @@ function handleGetOne(request,response,next) {
 
 /**
  * Takes in a certain model and creates a new record for that model.
+ * @route POST /api/v1/:model
  */
 function handlePost(request,response,next) {
   request.model.post(request.body)
@@ -62,6 +65,7 @@ function handlePost(request,response,next) {
 
 /**
  * Takes in a certain model, and an id and change as parameters, and updates the specified id with the changes.
+ * @route PUT /api/v1/:model/:id
  */
 function handlePut(request,response,next) {
   request.model.put(request.params.id, request.body)
@@ -71,6 +75,7 @@ function handlePut(request,response,next) {
 
 /**
  * Takes in a certain model and an id, and deletes the specified id.
+ * @route DELETE /api/v1/:model/:id
  */
 function handleDelete(request,response,next) {
   request.model.delete(request.params.id)

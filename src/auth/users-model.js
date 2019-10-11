@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const mongoose =  require('mongoose');
 
-const users = new Mongoose.Schema({
+const users = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   email: { type: String },
@@ -24,7 +24,7 @@ users.statics.authenticateBasic = async function ({ username, password }) {
   let query = { username };
   let user = this.findOne(query);
   return user && user.comparePassword(password);
-}
+};
 
 users.statics.authenticateToken = async function(token) {
   let tokenData = jwt.decode(token);
@@ -35,12 +35,12 @@ users.statics.authenticateToken = async function(token) {
   } else {
     return null;
   }
-}
+};
 
 users.methods.comparePassword = async function(password) {
   let valid = await bcrypt.compare(password, this.password);
   return valid ? this : null;
-}
+};
 
 users.methods.generateToken = function() {
   let tokenData = {
@@ -48,10 +48,10 @@ users.methods.generateToken = function() {
     role: this.role,
   };
   return jwt.sign(tokenData, this.generateSecret);
-}
+};
 
 users.methods.generateSecret = function() {
   return process.env.SECRET || 'DeltaVcrjs401d4';
-}
+};
 
 module.exports = mongoose.model('users', users);
