@@ -10,11 +10,12 @@ router.post('/signup', (req, res, next) => {
   user.save()
     .then(user => {
       req.user = user;
-      res.send(`${user} exists now.`);
+      req.token = user.generateToken();
+      res.send(req.token);
     })
     .catch(next);
 });
 
 router.get('/signin', auth(), (req, res, next) => {
-  res.send(`I'm in.`);
+  res.send(req.token);
 });

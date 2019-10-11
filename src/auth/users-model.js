@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const mongoose =  require('mongoose');
 
 const users = new Mongoose.Schema({
@@ -28,6 +29,14 @@ users.statics.authenticateBasic = async function ({ username, password }) {
 users.methods.comparePassword = async function(password) {
   let valid = await bcrypt.compare(password, this.password);
   return valid ? this : null;
+}
+
+users.methods.generateToken = function() {
+  let tokenData = {
+    id: this._id,
+    role: this.role,
+  };
+  return jwt.sign(tokenData, process.env.SECRET || 'DeltaVcrjs401d4');
 }
 
 module.exports = mongoose.model('users', users);
