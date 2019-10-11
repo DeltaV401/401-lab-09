@@ -26,6 +26,17 @@ users.statics.authenticateBasic = async function ({ username, password }) {
   return user && user.comparePassword(password);
 }
 
+users.statics.authenticateToken = async function(token) {
+  let tokenData = jwt.decode(token);
+  let query = { _id: tokenData.id };
+  let user = await this.findOne(query);
+  if(user && jwt.verify(token, user.generateSecret())) {
+    return user;
+  } else {
+    return null;
+  }
+}
+
 users.methods.comparePassword = async function(password) {
   let valid = await bcrypt.compare(password, this.password);
   return valid ? this : null;
@@ -36,7 +47,11 @@ users.methods.generateToken = function() {
     id: this._id,
     role: this.role,
   };
-  return jwt.sign(tokenData, process.env.SECRET || 'DeltaVcrjs401d4');
+  return jwt.sign(tokenData, this.generateSecret);
+}
+
+users.methods.generateSecret = function() {
+  return process.env.SECRET || 'DeltaVcrjs401d4';
 }
 
 module.exports = mongoose.model('users', users);
